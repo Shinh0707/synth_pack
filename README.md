@@ -117,7 +117,7 @@ audio_data = player.play_sequence(sequence)
 
 ```bash
 # リポジトリのクローン
-git clone https://your-repository-url/synth_pack.git
+git clone https://github.com/Shinh0707/synth_pack.git
 cd synth_pack
 
 # 開発用依存パッケージのインストール
