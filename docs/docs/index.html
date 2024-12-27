@@ -1,0 +1,211 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Synth Pack ドキュメント &mdash; Synth Pack 0.1.1 ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=3c917d90"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=4755f45a"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="検索" href="search.html" />
+    <link rel="next" title="エフェクトモジュール" href="effect.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            Synth Pack
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">コンテンツ:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="effect.html">エフェクトモジュール</a></li>
+<li class="toctree-l1"><a class="reference internal" href="env.html">エンベロープモジュール</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filter.html">フィルターモジュール</a></li>
+<li class="toctree-l1"><a class="reference internal" href="osc.html">オシレーターモジュール</a></li>
+<li class="toctree-l1"><a class="reference internal" href="synth.html">シンセサイザーモジュール</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Synth Pack</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Synth Pack ドキュメント</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="synth-pack">
+<h1>Synth Pack ドキュメント<a class="headerlink" href="#synth-pack" title="Link to this heading"></a></h1>
+<section id="id1">
+<h2>概要<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>このプロジェクトは、Pythonで実装された高機能なソフトウェアシンセサイザーです。
+基本的な波形生成から、モジュラーシンセ、グラニュラー合成まで、
+様々な音声合成手法を提供します。</p>
+</section>
+<section id="id2">
+<h2>目次<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">コンテンツ:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="effect.html">エフェクトモジュール</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="effect.html#synth.effect.Effect"><code class="docutils literal notranslate"><span class="pre">Effect</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="effect.html#synth.effect.Delay"><code class="docutils literal notranslate"><span class="pre">Delay</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="effect.html#synth.effect.Reverb"><code class="docutils literal notranslate"><span class="pre">Reverb</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="effect.html#synth.effect.Echo"><code class="docutils literal notranslate"><span class="pre">Echo</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="effect.html#synth.effect.Chorus"><code class="docutils literal notranslate"><span class="pre">Chorus</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="effect.html#synth.effect.RingModulate"><code class="docutils literal notranslate"><span class="pre">RingModulate</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="effect.html#synth.effect.Flanger"><code class="docutils literal notranslate"><span class="pre">Flanger</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="effect.html#synth.effect.Unison"><code class="docutils literal notranslate"><span class="pre">Unison</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="effect.html#synth.effect.Tremolo"><code class="docutils literal notranslate"><span class="pre">Tremolo</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="effect.html#synth.effect.BitCrusher"><code class="docutils literal notranslate"><span class="pre">BitCrusher</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="effect.html#synth.effect.SpringReverb"><code class="docutils literal notranslate"><span class="pre">SpringReverb</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="effect.html#synth.effect.PitchShifter"><code class="docutils literal notranslate"><span class="pre">PitchShifter</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="effect.html#synth.effect.ShimmerReverb"><code class="docutils literal notranslate"><span class="pre">ShimmerReverb</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="effect.html#synth.effect.StereoEnhancer"><code class="docutils literal notranslate"><span class="pre">StereoEnhancer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="effect.html#synth.effect.Portamento"><code class="docutils literal notranslate"><span class="pre">Portamento</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="effect.html#synth.effect.Compressor"><code class="docutils literal notranslate"><span class="pre">Compressor</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="effect.html#id2">エフェクトの基底クラス</a></li>
+<li class="toctree-l2"><a class="reference internal" href="effect.html#id3">ディレイエフェクト</a></li>
+<li class="toctree-l2"><a class="reference internal" href="effect.html#id4">リバーブエフェクト</a></li>
+<li class="toctree-l2"><a class="reference internal" href="effect.html#id5">その他のエフェクト</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="env.html">エンベロープモジュール</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="env.html#id2">エンベロープの状態</a></li>
+<li class="toctree-l2"><a class="reference internal" href="env.html#adsr">ADSRエンベロープ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="env.html#id3">使用例</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="filter.html">フィルターモジュール</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="filter.html#id2">フィルターの基底クラス</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filter.html#id3">ローパスフィルター</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filter.html#id4">ハイパスフィルター</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filter.html#id5">バンドパスフィルター</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filter.html#id6">使用例</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="osc.html">オシレーターモジュール</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="osc.html#synth.osc.Oscillator"><code class="docutils literal notranslate"><span class="pre">Oscillator</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="osc.html#synth.osc.SineOscillator"><code class="docutils literal notranslate"><span class="pre">SineOscillator</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="osc.html#synth.osc.SquareOscillator"><code class="docutils literal notranslate"><span class="pre">SquareOscillator</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="osc.html#synth.osc.PulseOscillator"><code class="docutils literal notranslate"><span class="pre">PulseOscillator</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="osc.html#synth.osc.TriangleOscillator"><code class="docutils literal notranslate"><span class="pre">TriangleOscillator</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="osc.html#synth.osc.SawtoothOscillator"><code class="docutils literal notranslate"><span class="pre">SawtoothOscillator</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="osc.html#synth.osc.AudioOscillator"><code class="docutils literal notranslate"><span class="pre">AudioOscillator</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="osc.html#synth.osc.FMOscillator"><code class="docutils literal notranslate"><span class="pre">FMOscillator</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="osc.html#synth.osc.SuperSawOscillator"><code class="docutils literal notranslate"><span class="pre">SuperSawOscillator</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="osc.html#synth.osc.NoiseOscillator"><code class="docutils literal notranslate"><span class="pre">NoiseOscillator</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="osc.html#synth.osc.PluckOscillator"><code class="docutils literal notranslate"><span class="pre">PluckOscillator</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="osc.html#id2">オシレーターの基底クラス</a></li>
+<li class="toctree-l2"><a class="reference internal" href="osc.html#id12">基本波形オシレーター</a></li>
+<li class="toctree-l2"><a class="reference internal" href="osc.html#id20">高度な合成オシレーター</a></li>
+<li class="toctree-l2"><a class="reference internal" href="osc.html#id29">ノイズジェネレーター</a></li>
+<li class="toctree-l2"><a class="reference internal" href="osc.html#id37">使用例</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="synth.html">シンセサイザーモジュール</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="synth.html#id2">シンセサイザーの基底クラス</a></li>
+<li class="toctree-l2"><a class="reference internal" href="synth.html#id3">モジュラーシンセサイザー</a></li>
+<li class="toctree-l2"><a class="reference internal" href="synth.html#id4">複合モジュラーシンセサイザー</a></li>
+<li class="toctree-l2"><a class="reference internal" href="synth.html#id5">グラニュラーシンセサイザー</a></li>
+<li class="toctree-l2"><a class="reference internal" href="synth.html#id6">使用例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="synth.html#id7">高度な使用例</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="id3">
+<h2>機能一覧<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>基本波形オシレーター (正弦波、矩形波、のこぎり波など)</p></li>
+<li><p>FM合成</p></li>
+<li><p>グラニュラー合成</p></li>
+<li><p>モジュラーシンセシステム</p></li>
+<li><p>各種エフェクト処理 (ディレイ、リバーブ、コーラスなど)</p></li>
+<li><p>フィルター処理 (ローパス、ハイパス、バンドパス)</p></li>
+<li><p>ADSRエンベロープ</p></li>
+</ul>
+</section>
+<section id="id4">
+<h2>インデックス<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">索引</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">モジュール索引</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">検索ページ</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="effect.html" class="btn btn-neutral float-right" title="エフェクトモジュール" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Shin.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
