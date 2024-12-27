@@ -87,32 +87,6 @@ audio_data = fm_synth.process(44100)  # 1秒分の音声
 fm_synth.note_off()
 ```
 
-## 高度な使用例
-
-example/kawaii.pyには、以下の実装例が含まれています：
-
-- SuperSawSynth: Future Bass向けの厚みのあるパッド音源
-- KawaiiPadSynth: フィルターエンベロープを使用した特徴的なパッド
-- KawaiiSynthBell: FMシンセシスを使用したベル系音源
-
-```python
-from synth_pack.examples.kawaii import SuperSawSynth
-
-# Super Sawシンセの使用
-super_saw = SuperSawSynth(44100)
-player = SimpleSynthPlayer(super_saw, bpm=128)
-sequence = [Note("C4", 1.0), Note("E4", 1.0), Note("G4", 1.0)]
-audio_data = player.play_sequence(sequence)
-```
-
-## ドキュメント
-
-詳細なドキュメントは`docs/`ディレクトリにあります：
-
-- `docs/api/`: 各モジュールのAPIリファレンス
-- `docs/examples/`: 実装例の説明
-- `docs/guide/`: シンセサイザー構築ガイド
-
 ## 開発
 
 ### 開発環境のセットアップ
@@ -128,4 +102,4 @@ pip install -e ".[dev]"
 
 ## ライセンス
 
-このプロジェクトはMITライセンスの下で公開されています。詳細は`LICENSE`ファイルを参照してください。
+このプロジェクトはMITライセンスの下で公開されています。詳細は[LICENCE](LICENCE.txt)ファイルを参照してください。
