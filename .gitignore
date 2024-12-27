@@ -6,11 +6,6 @@ synth/__pycache__/*.pyc
 docs/_build/*
 docs/_sources/*.rst.txt
 
-# Virtual environments
-.env
-.venv*
-env*
-
 # IDE/Editor specific files
 .idea/
 .vscode/
