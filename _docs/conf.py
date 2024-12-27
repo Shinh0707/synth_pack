@@ -30,8 +30,10 @@ extensions = [
     "sphinx.ext.githubpages",
 ]
 
+
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+html_baseurl = "/synth_pack/"
 
 # HTML出力の設定
 html_theme = "sphinx_rtd_theme"  # Read the Docsテーマを使用
