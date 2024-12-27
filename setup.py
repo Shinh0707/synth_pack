@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="synth_pack",
-    version="0.1.0",
+    version="0.1.1",
     description="Modular Synthesizer Package for Python",
     author="Shin",
     packages=find_packages(),

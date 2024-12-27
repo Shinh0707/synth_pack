@@ -1,0 +1,45 @@
+# Build/temporary files
+__pycache__/*.pyc
+synth/__pycache__/*.pyc
+
+# Sphinx documentation
+docs/_build/*
+docs/_sources/*.rst.txt
+
+# Virtual environments
+.env
+.venv*
+env*
+
+# IDE/Editor specific files
+.idea/
+.vscode/
+
+# Sphinx static assets (can be customized)
+docs/_static/fonts/*
+docs/_static/js/badge_only.js
+docs/_static/js/theme.js
+docs/_static/js/versions.js
+
+# Test outputs (can be customized)
+*.wav  # Adjust if you want to keep specific audio files
+
+# Packaging leftovers
+*.egg-info/*
+
+# Exclude forPrompt/examples.py (if not needed)
+examples/forPrompt/
+
+# Consider including these based on your needs:
+# requirements.txt  # If you manage dependencies manually
+synth_pack.egg-info/  # If you distribute synth_pack as a package
+
+# Lines commented out can be uncommented if needed
+
+# Examples (uncomment if needed)
+examples/  # If you don't want to track example scripts
+
+# Documentation assets (uncomment if needed)
+docs/_static/css/*
+docs/_static/fonts/Lato/*
+docs/_static/fonts/RobotoSlab/*

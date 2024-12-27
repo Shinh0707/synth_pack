@@ -2,6 +2,7 @@ import time
 from typing import List, Union, Optional
 import numpy as np
 
+from synth.effect import Reverb
 from synth.filter import LowPassFilter
 from synth.osc import PulseOscillator, SawtoothOscillator
 from synth.synth import ModularSynth,Synth
@@ -122,7 +123,7 @@ if __name__ == "__main__":
     lpf = LowPassFilter()
     lpf.set_cutoff(2000)
     synth.add_filter(lpf)
-    synth.set_reverb(room_size=0.7, mix=0.2) #非推奨
+    synth.add_effect(Reverb())
 
     # エンベロープの設定
     synth.set_envelope(attack=0.1, decay=0.2, sustain=0.7, release=0.3)

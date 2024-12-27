@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Generic, Optional
 import numpy as np
 from synth.osc import Oscillator, AudioOscillator
 from synth.filter import Filter
@@ -6,84 +7,179 @@ from synth.effect import Delay, Effect, Reverb, Chorus
 from synth.env import ADSR, ADSRState
 import random
 
+"""シンセサイザーの基本クラスと各種実装
+
+基本的なシンセサイザーから高度な音声合成まで、
+様々な方式のシンセサイザーを提供する。
+各シンセサイザーは独自の音声合成方式を持ち、
+オシレーター、フィルター、エフェクトを組み合わせて
+複雑な音色を生成することが可能。
+
+Classes:
+    Synth: シンセサイザーの基底クラス
+    ModularSynth: モジュラー方式のシンセサイザー
+    CompositeModularSynth: 複数のModularSynthを組み合わせたシンセサイザー
+    GranularSynth: グラニュラー合成方式のシンセサイザー
+"""
+
+
 class Synth(ABC):
+    """シンセサイザーの基底クラス
+
+    全てのシンセサイザークラスはこのクラスを継承して実装する。
+    ADSRエンベロープによる音量制御機能を提供する。
+
+    Attributes:
+        sample_rate: サンプリングレート (Hz), Default: 44100
+        envelope: ADSRエンベロープ
+
+    Methods:
+        note_on(frequency: float, offset_phase_time: float = 0.0):
+            指定された周波数でノートをオンにする
+        note_off():
+            現在鳴っているノートをオフにする
+        process(num_samples: int, samples: Optional[np.ndarray] = None):
+            指定されたサンプル数の音声を生成する
+    """
     sample_rate: int
+    envelope: ADSR
+    @abstractmethod
+    def __init__(self, sample_rate:int=44100):
+        """シンセサイザーを初期化する
 
-    @abstractmethod
-    def note_on(self, frequency: float, offset_phase_time: float = 0.0):
-        pass
-    @abstractmethod
-    def note_off(self):
-        pass
-    @abstractmethod
-    def process(self, num_samples: int) -> np.ndarray:
-        pass
-
-class ModularSynth(Synth):
-    def __init__(self, sample_rate: int = 44100):
+        Args:
+            sample_rate: サンプリングレート (Hz), Default: 44100
+        """
         self.sample_rate = sample_rate
-        self.oscillators: list[Oscillator] = []
-        self.effects: list[Effect] = []
         self.envelope = ADSR(sample_rate=sample_rate)
 
-    def add_oscillator(self, osc: Oscillator):
-        self.oscillators.append(osc)
-
-    def add_filter(self, filter: Filter):
-        filter.sample_rate = self.sample_rate
-        self.effects.append(filter)
-
-    def set_envelope(self, attack: float, decay: float, sustain: float, release: float):
-        self.envelope = ADSR(attack, decay, sustain, release, self.sample_rate)
-
-    def add_effect(self, effect:Effect):
-        effect.sample_rate = self.sample_rate
-        self.effects.append(effect)
-
-    def set_delay(
-        self, delay_time: float = 0.5, feedback: float = 0.5, mix: float = 0.5
-    ):
-        # add_effectを使ってほしい
-        self.effects.append(Delay(sample_rate=self.sample_rate, delay_time=delay_time, feedback=feedback, mix=mix))
-
-    def set_reverb(
-        self, room_size: float = 0.8, damping: float = 0.5, mix: float = 0.5
-    ):
-        # add_effectを使ってほしい
-        self.effects.append(Reverb(sample_rate=self.sample_rate, room_size=room_size, damping=damping, mix=mix))
-
-    def set_chorus(self, rate: float = 1.0, depth: float = 0.003, mix: float = 0.5):
-        # add_effectを使ってほしい
-        self.effects.append(Chorus(sample_rate=self.sample_rate, rate=rate, depth=depth, mix=mix))
-
     def note_on(self, frequency: float, offset_phase_time: float = 0.0):
-        for osc in self.oscillators:
-            osc.set_frequency(frequency)
         self.envelope.note_on()
-        for effect in self.effects:
-            effect.reset_phase(offset_phase_time)
 
     def note_off(self):
         if self.envelope.state != ADSRState.RELEASE:
             self.envelope.note_off()
+    def process(self, num_samples: int, samples: Optional[np.ndarray]=None) -> np.ndarray:
+        output = self._process(
+            num_samples,
+            np.zeros((num_samples, 2)) if samples is None else samples
+        )
+        return output * self.envelope.process(num_samples)
 
-    def process(self, num_samples: int) -> np.ndarray:
-        if not self.oscillators:
-            return np.zeros((num_samples, 2))
-        # Mix oscillators
-        mixed = np.zeros((num_samples,2))
+    @abstractmethod
+    def _process(self, num_samples: int, samples: np.ndarray) -> np.ndarray:
+        pass
+
+    def getADSR(self):
+        return self.envelope
+
+    def changeADSR(self, envelope:ADSR):
+        self.envelope = envelope
+
+class ModularSynth(Synth):
+    """モジュラー方式のシンセサイザー
+
+    複数のオシレーター、フィルター、エフェクトを
+    自由に組み合わせて音色を作り出すことができる。
+    モジュラーシンセサイザーの基本的な機能を実装。
+
+    Attributes:
+        oscillators: オシレーターのリスト
+        effects: フィルターとエフェクトのリスト
+
+    Methods:
+        add_oscillator(osc: Oscillator):
+            オシレーターを追加する
+        add_filter(filter: Filter):
+            フィルターを追加する
+        add_effect(effect: Effect):
+            エフェクトを追加する
+        set_envelope(attack: float, decay: float, sustain: float, release: float):
+            エンベロープのパラメータを設定する
+    """
+    def __init__(self, sample_rate: int = 44100):
+        """モジュラーシンセを初期化する
+
+        Args:
+            sample_rate: サンプリングレート (Hz), Default: 44100
+
+        Example:
+            >>> synth = ModularSynth(44100)
+            >>> synth.add_oscillator(SawtoothOscillator())
+            >>> synth.add_filter(LowPassFilter())
+            >>> synth.set_envelope(0.1, 0.2, 0.7, 0.3)
+        """
+        super().__init__(sample_rate=sample_rate)
+        self.oscillators: list[Oscillator] = []
+        self.effects: list[Effect] = []
+
+    def add_oscillator(self, osc: Oscillator):
+        self.oscillators.append(osc)
+        return self.oscillators[-1]
+
+    def add_filter(self, filter: Filter) -> Filter:
+        filter.sample_rate = self.sample_rate
+        self.effects.append(filter)
+        return self.effects[-1]
+
+    def set_envelope(self, attack: float, decay: float, sustain: float, release: float):
+        self.envelope.attack_time = attack
+        self.envelope.decay_time = decay
+        self.envelope.sustain_level = sustain
+        self.envelope.release_time = release
+
+    def add_effect(self, effect:Effect):
+        effect.sample_rate = self.sample_rate
+        self.effects.append(effect)
+        return self.effects[-1]
+
+    def note_on(self, frequency: float, offset_phase_time: float = 0.0):
+        super().note_on(frequency=frequency, offset_phase_time=offset_phase_time)
         for osc in self.oscillators:
-            mixed += osc.process(num_samples)
-        mixed /= len(self.oscillators)
+            osc.set_frequency(frequency)
+        for effect in self.effects:
+            effect.reset_phase(offset_phase_time)
+
+    def _process(self, num_samples:int, samples: np.ndarray) -> np.ndarray:
+        if not self.oscillators:
+            return samples
+        # Mix oscillators
+        for osc in self.oscillators:
+            samples += osc.process(num_samples)
+        samples /= len(self.oscillators)
         # Apply effects
         for effect in self.effects:
-            mixed = effect.process(mixed)
-        # Apply envelope
-        return mixed * self.envelope.process(num_samples)
+            samples = effect.process(samples)
+        return samples
 
 class CompositeModularSynth(Synth):
+    """複数のModularSynthを組み合わせたシンセサイザー
+
+    複数のモジュラーシンセを重ね合わせることで、
+    より複雑な音色を作り出すことができる。
+    レイヤー化された音色の生成に適している。
+
+    Attributes:
+        synths: ModularSynthのリスト
+
+    Methods:
+        add_synth(synth: ModularSynth):
+            新しいシンセサイザーレイヤーを追加する
+    """
     def __init__(self, sample_rate: int = 44100):
-        self.sample_rate = sample_rate
+        """複合モジュラーシンセを初期化する
+
+        Args:
+            sample_rate: サンプリングレート (Hz), Default: 44100
+
+        Example:
+            >>> composite = CompositeModularSynth(44100)
+            >>> synth1 = ModularSynth()
+            >>> synth2 = ModularSynth()
+            >>> composite.add_synth(synth1)
+            >>> composite.add_synth(synth2)
+        """
+        super().__init__(sample_rate=sample_rate)
         self.synths: list[ModularSynth] = []
 
     def add_synth(self, synth: ModularSynth):
@@ -92,23 +188,60 @@ class CompositeModularSynth(Synth):
         return synth
 
     def note_on(self, frequency: float, offset_phase_time: float = 0.0):
+        super().note_on(frequency=frequency, offset_phase_time=offset_phase_time)
         for synth in self.synths:
             synth.note_on(frequency, offset_phase_time)
 
     def note_off(self):
+        super().note_off()
         for synth in self.synths:
             synth.note_off()
 
-    def process(self, num_samples: int) -> np.ndarray:
-        mixed = np.zeros(num_samples)
+    def _process(self, num_samples: int, samples: np.ndarray) -> np.ndarray:
         for synth in self.synths:
-            mixed += synth.process(num_samples)
-        mixed /= len(self.synths)
-        return mixed
+            samples += synth.process(num_samples)
+        samples /= len(self.synths)
+        return samples
 
 
-class GranularSynthesizer(Synth):
+class GranularSynth(Synth):
+    """グラニュラー合成方式のシンセサイザー
+
+    音声をマイクロ単位の粒子（グレイン）に分解し、
+    それらを重ね合わせることで新しい音色を生成する。
+    テクスチャー的な音色や時間軸の操作が可能。
+
+    Attributes:
+        grain_size: グレインの大きさ (sec)
+        grain_density: 1秒あたりのグレイン生成数
+        position_jitter: 位置のランダム性 (0.0-1.0)
+        pitch_jitter: ピッチのランダム性 (0.0-1.0)
+        max_grains: 同時に発音可能な最大グレイン数
+
+    Methods:
+        set_grain_size(size: float):
+            グレインサイズを設定する (sec)
+        set_grain_density(density: float):
+            グレイン密度を設定する (grains/sec)
+        set_position_jitter(amount: float):
+            位置のランダム性を設定する (0.0-1.0)
+        set_pitch_jitter(amount: float):
+            ピッチのランダム性を設定する (0.0-1.0)
+    """
     class Grain(ModularSynth):
+        """グレイン（音の粒子）を表現するクラス
+
+        GranularSynthで使用される個々のグレインを管理する。
+        ModularSynthを継承し、グレイン特有の機能を追加。
+
+        Attributes:
+            start_time: グレインの開始時間 (sec)
+            duration: グレインの継続時間 (sec)
+            position: 音源内の開始位置 (samples)
+            pitch_shift: ピッチシフト量
+            pan: パンニング位置 (0.0-1.0)
+            is_active: グレインがアクティブかどうか
+        """
         def __init__(
             self,
             oscillator: AudioOscillator,
@@ -136,19 +269,18 @@ class GranularSynthesizer(Synth):
             self.add_oscillator(oscillator)
             self.is_active = True
 
-        def process(self, num_samples: int) -> np.ndarray:
+        def _process(self, samples: np.ndarray, num_samples: int) -> np.ndarray:
             if not self.is_active:
-                return np.zeros((num_samples, 2))
-            audio = self.oscillators[0].process(num_samples)
+                return samples
+            samples = self.oscillators[0].process(num_samples)
             if len(self.oscillators) > 1:
                 for osc in self.oscillators[1:]:
-                    audio += osc.process(num_samples)
-                audio /= len(self.oscillators)
+                    samples += osc.process(num_samples)
+                samples /= len(self.oscillators)
             # Apply effects
             for effect in self.effects:
-                audio = effect.process(audio)
-            envelope = self.envelope.process(num_samples)
-            return audio * envelope
+                samples = effect.process(samples)
+            return samples
 
     def __init__(
         self,
@@ -160,15 +292,25 @@ class GranularSynthesizer(Synth):
         pitch_jitter: float = 0.1,
         max_grains: int = 20
     ):
-        """
-        Parameters:
-            audio_source: オーディオファイルパスまたは波形データ
-            sample_rate: サンプリングレート
-            grain_size: グレインの基本サイズ（秒）
-            grain_density: 1秒あたりの新規グレイン生成数
-            position_jitter: 位置のランダム性（0-1）
-            pitch_jitter: ピッチのランダム性（0-1）
-            max_grains: グレインの最大数
+        """グラニュラーシンセを初期化する
+
+        Args:
+            audio_source: 音源データまたは音声ファイルパス
+            sample_rate: サンプリングレート (Hz), Default: 44100
+            grain_size: グレインの基本サイズ (sec), Default: 0.1
+            grain_density: 1秒あたりの新規グレイン生成数, Default: 10
+            position_jitter: 位置のランダム性 (0.0-1.0), Default: 0.1
+            pitch_jitter: ピッチのランダム性 (0.0-1.0), Default: 0.1
+            max_grains: 最大同時発音グレイン数, Default: 20
+
+        Example:
+            >>> # 音声ファイルからグラニュラーシンセを作成
+            >>> granular = GranularSynth("sample.wav",
+            ...                         grain_size=0.05,
+            ...                         grain_density=20)
+            >>> # パラメータを調整
+            >>> granular.set_position_jitter(0.2)
+            >>> granular.set_pitch_jitter(0.15)
         """
         self.base_oscillator = AudioOscillator(audio_source, sample_rate)
         self.sample_rate = sample_rate
@@ -179,7 +321,7 @@ class GranularSynthesizer(Synth):
         self.max_grains = max_grains
         self.frequency = 0
 
-        self.grains: list[GranularSynthesizer.Grain] = []
+        self.grains: list[GranularSynth.Grain] = []
         self.current_time = 0.0
         self.playhead_position = 0
         self.is_playing = True
@@ -199,7 +341,7 @@ class GranularSynthesizer(Synth):
         pan = random.uniform(0.3, 0.7)  # ステレオフィールドでの位置
 
         # グレインの生成
-        return GranularSynthesizer.Grain(
+        return GranularSynth.Grain(
             oscillator=self.base_oscillator,
             start_time=self.current_time,
             duration=duration,
@@ -208,11 +350,11 @@ class GranularSynthesizer(Synth):
             pan=pan,
         )
 
-    def process(self, num_samples: int) -> np.ndarray:
+    def _process(self, num_samples: int, samples: np.ndarray) -> np.ndarray:
         if (not self.is_playing) and len(self.grains) == 0:
-            return np.zeros((num_samples, 2))
+            return samples
 
-        output = np.zeros((num_samples, 2))
+        output = samples
         time_step = num_samples / self.sample_rate
 
         # 新しいグレインの生成
@@ -261,12 +403,14 @@ class GranularSynthesizer(Synth):
 
     def note_on(self, frequency: float = None, offset_phase_time: float = 0.0):
         """再生開始"""
+        super().note_on(frequency=frequency,offset_phase_time=offset_phase_time)
         self.is_playing = True
         self.frequency = frequency
         self.grains = []
 
     def note_off(self):
         """再生停止"""
+        super().note_off()
         self.is_playing = False
         for grain in self.grains:
             grain.note_off()
