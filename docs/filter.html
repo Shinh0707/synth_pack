@@ -49,11 +49,33 @@
 <li class="toctree-l1"><a class="reference internal" href="effect.html">エフェクトモジュール</a></li>
 <li class="toctree-l1"><a class="reference internal" href="env.html">エンベロープモジュール</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">フィルターモジュール</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id2">フィルターの基底クラス</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">ローパスフィルター</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">ハイパスフィルター</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id5">バンドパスフィルター</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id6">使用例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#synth.filter.Filter"><code class="docutils literal notranslate"><span class="pre">Filter</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#synth.filter.Filter.__init__"><code class="docutils literal notranslate"><span class="pre">Filter.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#synth.filter.Filter.set_cutoff"><code class="docutils literal notranslate"><span class="pre">Filter.set_cutoff()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#synth.filter.Filter.set_resonance"><code class="docutils literal notranslate"><span class="pre">Filter.set_resonance()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#synth.filter.LowPassFilter"><code class="docutils literal notranslate"><span class="pre">LowPassFilter</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#synth.filter.LowPassFilter._process"><code class="docutils literal notranslate"><span class="pre">LowPassFilter._process()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#synth.filter.HighPassFilter"><code class="docutils literal notranslate"><span class="pre">HighPassFilter</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#synth.filter.HighPassFilter._process"><code class="docutils literal notranslate"><span class="pre">HighPassFilter._process()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#synth.filter.BandPassFilter"><code class="docutils literal notranslate"><span class="pre">BandPassFilter</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#synth.filter.BandPassFilter.__init__"><code class="docutils literal notranslate"><span class="pre">BandPassFilter.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#synth.filter.BandPassFilter.set_bandwidth"><code class="docutils literal notranslate"><span class="pre">BandPassFilter.set_bandwidth()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#synth.filter.BandPassFilter._process"><code class="docutils literal notranslate"><span class="pre">BandPassFilter._process()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#synth.filter.MultiModeFilter"><code class="docutils literal notranslate"><span class="pre">MultiModeFilter</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#synth.filter.MultiModeFilter.__init__"><code class="docutils literal notranslate"><span class="pre">MultiModeFilter.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#synth.filter.MultiModeFilter.set_mode"><code class="docutils literal notranslate"><span class="pre">MultiModeFilter.set_mode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#synth.filter.MultiModeFilter._process"><code class="docutils literal notranslate"><span class="pre">MultiModeFilter._process()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">使用例</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="osc.html">オシレーターモジュール</a></li>
@@ -84,11 +106,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="id1">
-<h1>フィルターモジュール<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+  <section id="module-synth.filter">
+<span id="id1"></span><h1>フィルターモジュール<a class="headerlink" href="#module-synth.filter" title="Link to this heading"></a></h1>
 <dl class="py class">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synth.filter.</span></span><span class="sig-name descname"><span class="pre">Filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">44100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#Filter"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a></dt>
+<dt class="sig sig-object py" id="synth.filter.Filter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synth.filter.</span></span><span class="sig-name descname"><span class="pre">Filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">44100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#Filter"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#synth.filter.Filter" title="Link to this definition"></a></dt>
 <dd><p>ベースクラス: <a class="reference internal" href="effect.html#synth.effect.Effect" title="synth.effect.Effect"><code class="xref py py-class docutils literal notranslate"><span class="pre">Effect</span></code></a></p>
 <p>フィルター処理の基底クラス</p>
 <p>全てのフィルタークラスはこのクラスを継承して実装する。
@@ -102,34 +124,34 @@
 </dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">44100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#Filter.__init__"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a></dt>
+<dt class="sig sig-object py" id="synth.filter.Filter.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">44100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#Filter.__init__"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#synth.filter.Filter.__init__" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">set_cutoff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#Filter.set_cutoff"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a></dt>
+<dt class="sig sig-object py" id="synth.filter.Filter.set_cutoff">
+<span class="sig-name descname"><span class="pre">set_cutoff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#Filter.set_cutoff"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#synth.filter.Filter.set_cutoff" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">set_resonance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#Filter.set_resonance"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a></dt>
+<dt class="sig sig-object py" id="synth.filter.Filter.set_resonance">
+<span class="sig-name descname"><span class="pre">set_resonance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#Filter.set_resonance"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#synth.filter.Filter.set_resonance" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synth.filter.</span></span><span class="sig-name descname"><span class="pre">LowPassFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">44100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#LowPassFilter"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a></dt>
-<dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">Filter</span></code></p>
+<dt class="sig sig-object py" id="synth.filter.LowPassFilter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synth.filter.</span></span><span class="sig-name descname"><span class="pre">LowPassFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">44100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#LowPassFilter"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#synth.filter.LowPassFilter" title="Link to this definition"></a></dt>
+<dd><p>ベースクラス: <a class="reference internal" href="#synth.filter.Filter" title="synth.filter.Filter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Filter</span></code></a></p>
 <p>ローパスフィルター</p>
 <p>カットオフ周波数以下の成分を通過させ、
 それ以上の周波数成分を減衰させる。</p>
 <p>2次IIRフィルターによる実装で、
 -12dB/octaveのスロープ特性を持つ。</p>
 <dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">_process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samples</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/synth/filter.html#LowPassFilter._process"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a></dt>
+<dt class="sig sig-object py" id="synth.filter.LowPassFilter._process">
+<span class="sig-name descname"><span class="pre">_process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samples</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/synth/filter.html#LowPassFilter._process"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#synth.filter.LowPassFilter._process" title="Link to this definition"></a></dt>
 <dd><p>ステレオ信号に対するローパスフィルター処理
 samples: shape (num_samples, 2) のステレオ信号
 returns: shape (num_samples, 2) のステレオ信号</p>
@@ -138,17 +160,17 @@ returns: shape (num_samples, 2) のステレオ信号</p>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synth.filter.</span></span><span class="sig-name descname"><span class="pre">HighPassFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">44100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#HighPassFilter"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a></dt>
-<dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">Filter</span></code></p>
+<dt class="sig sig-object py" id="synth.filter.HighPassFilter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synth.filter.</span></span><span class="sig-name descname"><span class="pre">HighPassFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">44100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#HighPassFilter"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#synth.filter.HighPassFilter" title="Link to this definition"></a></dt>
+<dd><p>ベースクラス: <a class="reference internal" href="#synth.filter.Filter" title="synth.filter.Filter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Filter</span></code></a></p>
 <p>ハイパスフィルター</p>
 <p>カットオフ周波数以上の成分を通過させ、
 それ以下の周波数成分を減衰させる。</p>
 <p>2次IIRフィルターによる実装で、
 -12dB/octaveのスロープ特性を持つ。</p>
 <dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">_process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samples</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/synth/filter.html#HighPassFilter._process"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a></dt>
+<dt class="sig sig-object py" id="synth.filter.HighPassFilter._process">
+<span class="sig-name descname"><span class="pre">_process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samples</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/synth/filter.html#HighPassFilter._process"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#synth.filter.HighPassFilter._process" title="Link to this definition"></a></dt>
 <dd><p>ステレオ信号に対するハイパスフィルター処理
 samples: shape (num_samples, 2) のステレオ信号
 returns: shape (num_samples, 2) のステレオ信号</p>
@@ -157,9 +179,9 @@ returns: shape (num_samples, 2) のステレオ信号</p>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synth.filter.</span></span><span class="sig-name descname"><span class="pre">BandPassFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">44100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandwidth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#BandPassFilter"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a></dt>
-<dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">Filter</span></code></p>
+<dt class="sig sig-object py" id="synth.filter.BandPassFilter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synth.filter.</span></span><span class="sig-name descname"><span class="pre">BandPassFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">44100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandwidth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#BandPassFilter"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#synth.filter.BandPassFilter" title="Link to this definition"></a></dt>
+<dd><p>ベースクラス: <a class="reference internal" href="#synth.filter.Filter" title="synth.filter.Filter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Filter</span></code></a></p>
 <p>バンドパスフィルター</p>
 <p>指定された周波数帯域の成分のみを通過させる。
 中心周波数とバンド幅のパラメータで特性を制御。</p>
@@ -171,18 +193,18 @@ returns: shape (num_samples, 2) のステレオ信号</p>
 <p>2次IIRフィルターによる実装で、
 中心周波数を境に±6dB/octaveのスロープ特性を持つ。</p>
 <dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">44100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandwidth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#BandPassFilter.__init__"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a></dt>
+<dt class="sig sig-object py" id="synth.filter.BandPassFilter.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">44100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandwidth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#BandPassFilter.__init__"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#synth.filter.BandPassFilter.__init__" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">set_bandwidth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#BandPassFilter.set_bandwidth"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a></dt>
+<dt class="sig sig-object py" id="synth.filter.BandPassFilter.set_bandwidth">
+<span class="sig-name descname"><span class="pre">set_bandwidth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#BandPassFilter.set_bandwidth"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#synth.filter.BandPassFilter.set_bandwidth" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">_process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samples</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/synth/filter.html#BandPassFilter._process"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a></dt>
+<dt class="sig sig-object py" id="synth.filter.BandPassFilter._process">
+<span class="sig-name descname"><span class="pre">_process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samples</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/synth/filter.html#BandPassFilter._process"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#synth.filter.BandPassFilter._process" title="Link to this definition"></a></dt>
 <dd><p>ステレオ信号に対するバンドパスフィルター処理
 samples: shape (num_samples, 2) のステレオ信号
 returns: shape (num_samples, 2) のステレオ信号</p>
@@ -191,9 +213,9 @@ returns: shape (num_samples, 2) のステレオ信号</p>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synth.filter.</span></span><span class="sig-name descname"><span class="pre">MultiModeFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'lowpass'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'highpass'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'bandpass'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'notch'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'lowpass'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resonance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">44100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#MultiModeFilter"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a></dt>
-<dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">Filter</span></code></p>
+<dt class="sig sig-object py" id="synth.filter.MultiModeFilter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synth.filter.</span></span><span class="sig-name descname"><span class="pre">MultiModeFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'lowpass'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'highpass'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'bandpass'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'notch'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'lowpass'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resonance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">44100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#MultiModeFilter"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#synth.filter.MultiModeFilter" title="Link to this definition"></a></dt>
+<dd><p>ベースクラス: <a class="reference internal" href="#synth.filter.Filter" title="synth.filter.Filter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Filter</span></code></a></p>
 <p>マルチモードフィルター</p>
 <p>1つのフィルターで複数のフィルターモードを切り替え可能。
 ローパス、ハイパス、バンドパス、ノッチの4モードを提供。</p>
@@ -207,18 +229,18 @@ returns: shape (num_samples, 2) のステレオ信号</p>
 </dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'lowpass'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'highpass'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'bandpass'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'notch'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'lowpass'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resonance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">44100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#MultiModeFilter.__init__"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a></dt>
+<dt class="sig sig-object py" id="synth.filter.MultiModeFilter.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'lowpass'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'highpass'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'bandpass'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'notch'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'lowpass'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resonance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">44100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#MultiModeFilter.__init__"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#synth.filter.MultiModeFilter.__init__" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">set_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'lowpass'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'highpass'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'bandpass'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'notch'</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#MultiModeFilter.set_mode"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a></dt>
+<dt class="sig sig-object py" id="synth.filter.MultiModeFilter.set_mode">
+<span class="sig-name descname"><span class="pre">set_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'lowpass'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'highpass'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'bandpass'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'notch'</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#MultiModeFilter.set_mode"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#synth.filter.MultiModeFilter.set_mode" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">_process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samples</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/synth/filter.html#MultiModeFilter._process"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a></dt>
+<dt class="sig sig-object py" id="synth.filter.MultiModeFilter._process">
+<span class="sig-name descname"><span class="pre">_process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samples</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/synth/filter.html#MultiModeFilter._process"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#synth.filter.MultiModeFilter._process" title="Link to this definition"></a></dt>
 <dd><p>マルチモードフィルター処理
 samples: shape (num_samples, 2) のステレオ信号
 returns: shape (num_samples, 2) のステレオ信号</p>
@@ -227,123 +249,7 @@ returns: shape (num_samples, 2) のステレオ信号</p>
 </dd></dl>
 
 <section id="id2">
-<h2>フィルターの基底クラス<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synth.filter.</span></span><span class="sig-name descname"><span class="pre">Filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">44100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#Filter"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a></dt>
-<dd><p>ベースクラス: <a class="reference internal" href="effect.html#synth.effect.Effect" title="synth.effect.Effect"><code class="xref py py-class docutils literal notranslate"><span class="pre">Effect</span></code></a></p>
-<p>フィルター処理の基底クラス</p>
-<p>全てのフィルタークラスはこのクラスを継承して実装する。
-カットオフ周波数とレゾナンスのパラメータを持つ。</p>
-<dl class="field-list simple">
-<dt class="field-odd">変数<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>cutoff</strong> -- カットオフ周波数 (Hz), Default: 1000.0</p></li>
-<li><p><strong>resonance</strong> -- レゾナンス (0.707-2.0), Default: 0.707</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">44100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#Filter.__init__"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">set_cutoff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#Filter.set_cutoff"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">set_resonance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">res</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#Filter.set_resonance"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="id3">
-<h2>ローパスフィルター<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synth.filter.</span></span><span class="sig-name descname"><span class="pre">LowPassFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">44100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#LowPassFilter"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a></dt>
-<dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">Filter</span></code></p>
-<p>ローパスフィルター</p>
-<p>カットオフ周波数以下の成分を通過させ、
-それ以上の周波数成分を減衰させる。</p>
-<p>2次IIRフィルターによる実装で、
--12dB/octaveのスロープ特性を持つ。</p>
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">_process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samples</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/synth/filter.html#LowPassFilter._process"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a></dt>
-<dd><p>ステレオ信号に対するローパスフィルター処理
-samples: shape (num_samples, 2) のステレオ信号
-returns: shape (num_samples, 2) のステレオ信号</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="id4">
-<h2>ハイパスフィルター<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synth.filter.</span></span><span class="sig-name descname"><span class="pre">HighPassFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">44100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#HighPassFilter"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a></dt>
-<dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">Filter</span></code></p>
-<p>ハイパスフィルター</p>
-<p>カットオフ周波数以上の成分を通過させ、
-それ以下の周波数成分を減衰させる。</p>
-<p>2次IIRフィルターによる実装で、
--12dB/octaveのスロープ特性を持つ。</p>
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">_process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samples</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/synth/filter.html#HighPassFilter._process"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a></dt>
-<dd><p>ステレオ信号に対するハイパスフィルター処理
-samples: shape (num_samples, 2) のステレオ信号
-returns: shape (num_samples, 2) のステレオ信号</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="id5">
-<h2>バンドパスフィルター<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synth.filter.</span></span><span class="sig-name descname"><span class="pre">BandPassFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">44100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandwidth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#BandPassFilter"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a></dt>
-<dd><p>ベースクラス: <code class="xref py py-class docutils literal notranslate"><span class="pre">Filter</span></code></p>
-<p>バンドパスフィルター</p>
-<p>指定された周波数帯域の成分のみを通過させる。
-中心周波数とバンド幅のパラメータで特性を制御。</p>
-<dl class="field-list simple">
-<dt class="field-odd">変数<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>bandwidth</strong> -- フィルターのバンド幅 (Hz), Default: 100.0</p>
-</dd>
-</dl>
-<p>2次IIRフィルターによる実装で、
-中心周波数を境に±6dB/octaveのスロープ特性を持つ。</p>
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">44100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandwidth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#BandPassFilter.__init__"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">set_bandwidth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/synth/filter.html#BandPassFilter.set_bandwidth"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">_process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samples</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/synth/filter.html#BandPassFilter._process"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a></dt>
-<dd><p>ステレオ信号に対するバンドパスフィルター処理
-samples: shape (num_samples, 2) のステレオ信号
-returns: shape (num_samples, 2) のステレオ信号</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="id6">
-<h2>使用例<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<h2>使用例<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
 <p>各フィルターの基本的な使用例を示します:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># ローパスフィルターの例</span>
 <span class="n">lpf</span> <span class="o">=</span> <span class="n">LowPassFilter</span><span class="p">()</span>
