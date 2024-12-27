@@ -4,6 +4,7 @@ synth/__pycache__/*.pyc
 
 # Sphinx documentation
 docs/_build/*
+_docs/*
 docs/_sources/*.rst.txt
 
 # IDE/Editor specific files
@@ -32,7 +33,7 @@ synth_pack.egg-info/  # If you distribute synth_pack as a package
 # Lines commented out can be uncommented if needed
 
 # Examples (uncomment if needed)
-examples/  # If you don't want to track example scripts
+examples/*  # If you don't want to track example scripts
 
 # Documentation assets (uncomment if needed)
 docs/_static/css/*
