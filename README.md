@@ -2,6 +2,8 @@
 
 Synth Packは、Pythonで実装されたモジュラー型シンセサイザーライブラリです。基本的な波形生成から高度なFM合成まで、様々な音声合成機能を提供します。
 
+[![Documentation](https://img.shields.io/badge/Documentation-View%20Docs-blue?style=flat-square)](https://shinh0707.github.io/synth_pack/)
+
 ## 特徴
 
 - モジュラー設計による柔軟な音声合成
