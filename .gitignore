@@ -34,8 +34,3 @@ synth_pack.egg-info/  # If you distribute synth_pack as a package
 
 # Examples (uncomment if needed)
 examples  # If you don't want to track example scripts
-
-# Documentation assets (uncomment if needed)
-docs/_static/css/*
-docs/_static/fonts/Lato/*
-docs/_static/fonts/RobotoSlab/*
