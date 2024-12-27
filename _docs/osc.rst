@@ -5,6 +5,7 @@
    :members:
    :undoc-members:
    :show-inheritance:
+   :no-index:
 
 オシレーターの基底クラス
 ------------------------
@@ -13,6 +14,7 @@
    :members:
    :undoc-members:
    :show-inheritance:
+   :no-index:
 
 基本波形オシレーター
 --------------------
@@ -21,26 +23,31 @@
    :members:
    :undoc-members:
    :show-inheritance:
+   :no-index:
 
 .. autoclass:: synth.osc.SquareOscillator
    :members:
    :undoc-members:
    :show-inheritance:
+   :no-index:
 
 .. autoclass:: synth.osc.PulseOscillator
    :members:
    :undoc-members:
    :show-inheritance:
+   :no-index:
 
 .. autoclass:: synth.osc.TriangleOscillator
    :members:
    :undoc-members:
    :show-inheritance:
+   :no-index:
 
 .. autoclass:: synth.osc.SawtoothOscillator
    :members:
    :undoc-members:
    :show-inheritance:
+   :no-index:
 
 高度な合成オシレーター
 ----------------------
@@ -49,16 +56,19 @@
    :members:
    :undoc-members:
    :show-inheritance:
+   :no-index:
 
 .. autoclass:: synth.osc.FMOscillator
    :members:
    :undoc-members:
    :show-inheritance:
+   :no-index:
 
 .. autoclass:: synth.osc.SuperSawOscillator
    :members:
    :undoc-members:
    :show-inheritance:
+   :no-index:
 
 ノイズジェネレーター
 --------------------
@@ -67,6 +77,7 @@
    :members:
    :undoc-members:
    :show-inheritance:
+   :no-index:
 
 使用例
 ---------
